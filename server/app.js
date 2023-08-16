@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
   return res.json("Hello, world...!");
 });
 
-// user authenticated routes
+// user authenticated  routes
 const userRoute = require("./routes/auth");
 app.use("/api/users", userRoute); //if the api call is "localhost:4000/api/users" then it will go to "./routes/auth"
 
