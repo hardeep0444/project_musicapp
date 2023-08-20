@@ -15,7 +15,7 @@ const userRoute = require("./routes/auth");
 app.use("/api/users", userRoute); //if the api call is "localhost:4000/api/users" then it will go to "./routes/auth"
 
 //to connect the mongoDB with the node js
-mongoose.connect(process.env.DB_STRING);
+mongoose.connect(process.env.DB_STRING, { useNewUrlParser: true });
 mongoose.connection
   .once("open", () => console.log("Connected to MongoDB"))
   .on("error", (error) => console.log(`Error => ${error}`));
