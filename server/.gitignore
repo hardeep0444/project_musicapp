@@ -12,8 +12,7 @@
 /build
 
 # misc
-/config
-/.serviceAccountKey.json
+config/serviceAccountKey.json
 .env
 .DS_Store
 .env.local
