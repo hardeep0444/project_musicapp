@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import { Login, Home } from "./components";
 import { app } from "./config/firebase.config";
 import { getAuth } from "firebase/auth";
+import { AnimatePresence } from "framer-motion";
 
 const App = () => {
   const firebaseAuth = getAuth(app);
@@ -33,12 +34,14 @@ const App = () => {
   }, []);
 
   return (
-    <div className="w-screen h-screen bg-primary flex justify-center items-center">
-      <Routes>
-        <Route path="/login" element={<Login setAuth={setAuth} />} />
-        <Route path="/*" element={<Home />} />
-      </Routes>
-    </div>
+    <AnimatePresence>
+      <div className="h-auto w-min-[680px] bg-primary flex justify-center items-center">
+        <Routes>
+          <Route path="/login" element={<Login setAuth={setAuth} />} />
+          <Route path="/*" element={<Home />} />
+        </Routes>
+      </div>
+    </AnimatePresence>
   );
 };
 
