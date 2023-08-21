@@ -26,7 +26,8 @@ router.get("/login", async (req, res) => {
         // User does not exist, need to create
         newUserData(decodeToken, req, res);
       } else {
-        return res.send("User already exists");
+        // User already exists then update the auth_time
+        updateNewUserData(decodeToken, req, res);
       }
     }
   } catch (error) {
@@ -54,4 +55,23 @@ const newUserData = async (decodeToken, req, res) => {
   }
 };
 
+//updating auth_time for the already existing user
+const updateNewUserData = async (decodeToken, req, res) => {
+  const filter = { user_id: decodeToken.user_id };
+  const options = {
+    upsert: true,
+    new: true,
+  };
+  try {
+    //find existing user with user_id and update auth_time
+    const updatedUser = await user.findOneAndUpdate(
+      filter,
+      { auth_time: decodeToken.auth_time },
+      options
+    );
+    res.status(200).send({ user: updatedUser });
+  } catch (error) {
+    res.status(400).send({ success: false, message: error });
+  }
+};
 module.exports = router;
